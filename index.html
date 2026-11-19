@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Лесная Гавань — загородный отель в лесу</title>
+<meta name="description" content="Загородный отель «Лесная Гавань» — тишина соснового леса, деревянные номера, баня и фермерская кухня в 40 км от Москвы.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ БАЗА ============ */
+:root{
+  --bg:#F6F1E8; --surface:#FFFDF9; --sand:#EDE3D3;
+  --wood:#8A5A3B; --wood-dark:#4A3728; --forest:#3E5344;
+  --text:#33291F; --muted:#7C6B5B; --line:rgba(74,55,40,.13);
+  --radius:20px; --shadow:0 18px 40px -24px rgba(74,55,40,.55);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  margin:0; font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:16px; line-height:1.65; color:var(--text); background:var(--bg);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-weight:600;line-height:1.12;margin:0}
+p{margin:0} img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none} ul{margin:0;padding:0;list-style:none}
+.art{display:block;width:100%;height:100%;object-fit:cover;}
+
+.container{width:100%;max-width:1180px;margin:0 auto;padding:0 24px}
+.section{padding:104px 0}
+.section--tight{padding:80px 0}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--wood);margin-bottom:18px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--wood);opacity:.6}
+.section-title{font-size:clamp(32px,4.4vw,50px);color:var(--wood-dark)}
+.section-sub{margin-top:16px;max-width:560px;color:var(--muted);font-size:16.5px}
+.head{max-width:640px;margin-bottom:56px}
+.head--center{margin-left:auto;margin-right:auto;text-align:center}
+.head--center .section-sub{margin-left:auto;margin-right:auto}
+.head--center .eyebrow::before{display:none}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 30px;border-radius:999px;border:1px solid transparent;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:transform .25s,background .25s,color .25s,border-color .25s,box-shadow .25s;white-space:nowrap}
+.btn--primary{background:var(--wood);color:#fff;box-shadow:0 14px 28px -16px rgba(138,90,59,1)}
+.btn--primary:hover{background:#75492E;transform:translateY(-2px)}
+.btn--ghost{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.55);backdrop-filter:blur(8px)}
+.btn--ghost:hover{background:#fff;color:var(--wood-dark);border-color:#fff;transform:translateY(-2px)}
+.btn--outline{background:transparent;color:var(--wood-dark);border-color:rgba(74,55,40,.25)}
+.btn--outline:hover{background:var(--wood-dark);color:#fff;border-color:var(--wood-dark)}
+.btn--block{width:100%}
+
+/* ============ ШАПКА ============ */
+.header{position:fixed;top:0;left:0;right:0;z-index:120;padding:18px 0;transition:background .35s,box-shadow .35s,padding .35s}
+.header .container{display:flex;align-items:center;gap:36px}
+.header__logo{display:flex;align-items:center;gap:12px;margin-right:auto;color:#fff;transition:color .3s}
+.logo-mark{width:42px;height:42px;flex:none;border-radius:14px;display:grid;place-items:center;background:linear-gradient(150deg,#A9744F,#75492E);box-shadow:0 8px 18px -10px rgba(0,0,0,.7)}
+.logo-mark svg{width:22px;height:22px;stroke:#F6F1E8;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.logo-text{display:flex;flex-direction:column;line-height:1.1}
+.logo-text b{font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;font-weight:700;letter-spacing:.04em}
+.logo-text span{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;opacity:.72}
+
+.nav{display:flex;align-items:center;gap:30px}
+.nav a{font-size:14.5px;font-weight:500;color:#fff;position:relative;padding:4px 0;transition:color .3s}
+.nav a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.3,1)}
+.nav a:hover::after{transform:scaleX(1)}
+.header__phone{font-size:14.5px;font-weight:600;color:#fff;transition:color .3s}
+.header__cta{padding:11px 24px;font-size:14px}
+
+.header.scrolled{padding:9px 0;background:rgba(246,241,232,.94);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line),0 12px 30px -28px rgba(74,55,40,.9)}
+.header.scrolled .header__logo,
+.header.scrolled .nav a,
+.header.scrolled .header__phone{color:var(--wood-dark)}
+.header.scrolled .header__cta{background:var(--wood-dark)}
+.header.scrolled .header__cta:hover{background:var(--wood)}
+
+.burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.12);cursor:pointer;position:relative;flex:none;transition:.3s}
+.burger span{position:absolute;left:12px;width:20px;height:1.8px;background:#fff;border-radius:2px;transition:.3s}
+.burger span:nth-child(1){top:16px} .burger span:nth-child(2){top:21.5px} .burger span:nth-child(3){top:27px}
+.header.scrolled .burger{border-color:var(--line);background:transparent}
+.header.scrolled .burger span{background:var(--wood-dark)}
+.burger.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden;padding:120px 0 80px}
+.hero__bg{position:absolute;inset:0;z-index:0}
+/* Центральное фото с коллажа */
+.hero__art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position: center 50%;}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:
+  linear-gradient(180deg,rgba(32,26,20,.65) 0%,rgba(32,26,20,.3) 42%,rgba(32,26,20,.75) 100%),
+  radial-gradient(ellipse at 50% 45%,rgba(0,0,0,0) 32%,rgba(20,16,12,.5) 100%);}
+.hero__inner{position:relative;z-index:2;max-width:880px;padding:0 24px;margin:0 auto}
+.hero .eyebrow{color:#EFDCC4;justify-content:center}
+.hero .eyebrow::before{background:#EFDCC4}
+.hero h1{font-size:clamp(40px,7vw,84px);font-weight:500;text-shadow:0 8px 40px rgba(0,0,0,.45)}
+.hero p{margin:26px auto 0;max-width:560px;font-size:clamp(16px,2vw,18.5px);font-weight:300;color:rgba(255,255,255,.92)}
+.hero__actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.hero__strip{position:absolute;left:0;right:0;bottom:0;z-index:3;border-top:1px solid rgba(255,255,255,.18);background:linear-gradient(180deg,rgba(20,16,12,0),rgba(20,16,12,.5))}
+.hero__strip .container{display:flex;justify-content:center;gap:clamp(28px,7vw,90px);padding-top:22px;padding-bottom:22px;flex-wrap:wrap}
+.hero__fact{display:flex;flex-direction:column;align-items:center;gap:2px}
+.hero__fact b{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:600}
+.hero__fact span{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.72}
+
+/* ============ ПРЕИМУЩЕСТВА ============ */
+.cards-4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.adv{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:32px 26px 30px;transition:transform .4s cubic-bezier(.2,.7,.3,1),box-shadow .4s,border-color .4s;position:relative;overflow:hidden}
+.adv::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:linear-gradient(90deg,var(--wood),#C79A6E);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.3,1)}
+.adv:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(138,90,59,.28)}
+.adv:hover::after{transform:scaleX(1)}
+.adv__icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--sand);margin-bottom:20px;transition:background .35s,transform .35s}
+.adv__icon svg{width:24px;height:24px;stroke:var(--wood);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .35s}
+.adv:hover .adv__icon{background:var(--wood);transform:rotate(-4deg)}
+.adv:hover .adv__icon svg{stroke:#fff}
+.adv h3{font-size:23px;color:var(--wood-dark);margin-bottom:8px}
+.adv p{font-size:14.5px;color:var(--muted);line-height:1.6}
+
+/* ============ НОМЕРА ============ */
+.rooms{background:linear-gradient(180deg,var(--bg),#F1E9DC)}
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.room{background:var(--surface);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .45s cubic-bezier(.2,.7,.3,1),box-shadow .45s}
+.room:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.room__media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--sand)}
+.room__media .art{transition:transform 1s cubic-bezier(.2,.7,.3,1)}
+.room:hover .room__media .art{transform:scale(1.06)}
+.room__tag{position:absolute;top:14px;left:14px;z-index:2;background:rgba(255,253,249,.95);color:var(--wood-dark);font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+.room__body{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1}
+.room h3{font-size:27px;color:var(--wood-dark)}
+.room__meta{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-weight:500}
+.room__meta span{display:inline-flex;align-items:center;gap:6px}
+.room__meta svg{width:15px;height:15px;stroke:var(--wood);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.room .desc{margin-top:16px;font-size:14.5px;color:var(--muted);flex:1}
+.room__foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.price{display:flex;flex-direction:column;line-height:1.25}
+.price b{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:var(--wood-dark)}
+.price span{font-size:12px;color:var(--muted);letter-spacing:.05em}
+.room__foot .btn{padding:12px 22px;font-size:14px}
+
+/* ============ ГАЛЕРЕЯ ============ */
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:215px;gap:16px}
+.g-item{position:relative;overflow:hidden;border-radius:16px;background:var(--sand);cursor:zoom-in;border:0;padding:0;display:block;font:inherit}
+.g-item:nth-child(1){grid-column:span 2;grid-row:span 2}
+.g-item .art{transition:transform 1.1s cubic-bezier(.2,.7,.3,1)}
+.g-item::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(32,26,20,0) 55%,rgba(32,26,20,.4));opacity:0;transition:opacity .45s}
+.g-item:hover .art{transform:scale(1.06)}
+.g-item:hover::after{opacity:1}
+
+/* ============ ОТЗЫВЫ ============ */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.review{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:34px 30px;display:flex;flex-direction:column;transition:transform .4s cubic-bezier(.2,.7,.3,1),box-shadow .4s}
+.review:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.review__quote{font-family:'Cormorant Garamond',Georgia,serif;font-size:56px;line-height:.6;color:var(--wood);opacity:.28;margin-bottom:16px}
+.review__stars{display:flex;gap:3px;margin-bottom:16px}
+.review__stars svg{width:15px;height:15px;fill:#C79A6E}
+.review p{font-size:15px;color:#4C4034;line-height:1.68;flex:1}
+.review__author{display:flex;align-items:center;gap:13px;margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+.avatar{width:44px;height:44px;border-radius:50%;flex:none;display:grid;place-items:center;background:linear-gradient(150deg,#C79A6E,#8A5A3B);color:#fff;font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;font-weight:600}
+.review__author b{display:block;font-size:14.5px;font-weight:700;color:var(--wood-dark)}
+.review__author span{font-size:12.5px;color:var(--muted)}
+
+/* ============ БРОНИРОВАНИЕ ============ */
+.booking{background:linear-gradient(160deg,#4A3728 0%,#3A2C21 55%,#2E241B 100%);color:#F3EADF;position:relative;overflow:hidden}
+.booking::before{content:"";position:absolute;inset:0;opacity:.14;background:
+  radial-gradient(ellipse at 20% 10%,#C79A6E 0%,transparent 55%),
+  radial-gradient(ellipse at 85% 90%,#3E5344 0%,transparent 60%);}
+.booking .container{position:relative;z-index:2}
+.booking-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
+.booking__text .eyebrow{color:#D8B48A}
+.booking__text .eyebrow::before{background:#D8B48A}
+.booking__text h2{color:#F7EEE3;font-size:clamp(32px,4.2vw,48px)}
+.booking__text p{margin-top:20px;color:rgba(247,238,227,.72);font-size:16px;max-width:400px}
+.booking__notes{margin-top:34px;display:flex;flex-direction:column;gap:14px}
+.booking__notes li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:rgba(247,238,227,.85)}
+.booking__notes svg{width:19px;height:19px;flex:none;margin-top:2px;stroke:#D8B48A;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.form-card{background:var(--surface);color:var(--text);border-radius:26px;padding:38px 36px;box-shadow:0 40px 70px -40px rgba(0,0,0,.75)}
+.form-card h3{font-size:28px;color:var(--wood-dark);margin-bottom:6px}
+.form-card > p{font-size:14px;color:var(--muted);margin-bottom:26px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field--full{grid-column:1/-1}
+.field label{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select{width:100%;padding:13px 15px;border-radius:12px;border:1px solid var(--line);background:#fff;font:inherit;font-size:15px;color:var(--text);outline:none;transition:border-color .25s,box-shadow .25s;-webkit-appearance:none;appearance:none}
+.field select{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237C6B5B' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+.field input::placeholder{color:#B3A493}
+.field input:focus,.field select:focus{border-color:var(--wood);box-shadow:0 0 0 3.5px rgba(138,90,59,.13)}
+.form-card .btn{margin-top:22px}
+.form-note{font-size:12px;color:var(--muted);margin-top:14px;text-align:center;line-height:1.5}
+.form-note a{color:var(--wood);text-decoration:underline;text-underline-offset:2px}
+
+/* Стили для Formspree */
+[data-fs-success]{display:none;margin-top:18px;padding:14px 18px;border-radius:14px;background:#E9F0E6;color:#3E5344;font-size:14px;font-weight:600;border:1px solid rgba(62,83,68,.2);text-align:center}
+[data-fs-success].show, [data-fs-success]:not(:empty){display:block;animation:fadeUp .45s ease both}
+[data-fs-error]{display:block;color:#C0573F;font-size:13px;margin-top:6px;font-weight:600}
+[data-fs-error]:empty{display:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.nojs-warn{margin-top:16px;padding:13px 16px;border-radius:12px;background:#F7EDE4;color:#7A4B2E;font-size:13.5px;text-align:center;border:1px solid rgba(138,90,59,.25)}
+.nojs-warn a{font-weight:700;text-decoration:underline}
+
+/* ============ КОНТАКТЫ ============ */
+.contacts-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.contact-list{display:flex;flex-direction:column;gap:26px;margin-top:38px}
+.contact-item{display:flex;gap:16px}
+.contact-item__icon{width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;background:var(--sand)}
+.contact-item__icon svg{width:21px;height:21px;stroke:var(--wood);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.contact-item b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:3px}
+.contact-item span{font-size:16.5px;color:var(--wood-dark);font-weight:500;line-height:1.5}
+.contact-item a:hover span{color:var(--wood)}
+.map{border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:var(--sand);min-height:440px;position:relative}
+.map .art{min-height:440px}
+.map__link{position:absolute;left:18px;bottom:18px;background:var(--surface);color:var(--wood-dark);padding:11px 18px;border-radius:999px;font-size:13.5px;font-weight:600;box-shadow:0 12px 26px -16px rgba(74,55,40,.95);transition:.25s}
+.map__link:hover{background:var(--wood-dark);color:#fff}
+
+/* ============ ПОДВАЛ ============ */
+.footer{background:#2E241B;color:rgba(243,234,223,.72);padding:70px 0 32px;font-size:14.5px}
+.footer__top{display:grid;grid-template-columns:1.4fr .8fr .8fr 1fr;gap:44px;padding-bottom:52px;border-bottom:1px solid rgba(243,234,223,.13)}
+.footer .header__logo{color:#F7EEE3;margin-bottom:18px}
+.footer__about{max-width:290px;line-height:1.7;font-size:14px}
+.footer h4{font-family:'Manrope',system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#F7EEE3;margin-bottom:18px}
+.footer li + li{margin-top:11px}
+.footer a{transition:color .25s}
+.footer a:hover{color:#F7EEE3}
+.socials{display:flex;gap:10px;margin-top:18px}
+.socials a{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;border:1px solid rgba(243,234,223,.22);transition:.3s}
+.socials a:hover{background:#F7EEE3;border-color:#F7EEE3;color:#2E241B;transform:translateY(-2px)}
+.socials svg{width:17px;height:17px;fill:currentColor}
+.footer__bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:26px;font-size:13px;opacity:.72}
+
+/* ============ АНИМАЦИЯ / ЛАЙТБОКС ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(20,16,12,.93);display:flex;align-items:center;justify-content:center;padding:40px;opacity:0;pointer-events:none;transition:opacity .3s}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox__art{width:min(92vw,980px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);background:var(--sand)}
+.lightbox__img{width:100%;height:100%;object-fit:cover;}
+.lightbox__close{position:absolute;top:24px;right:28px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font-size:22px;line-height:1;cursor:pointer;transition:.25s}
+.lightbox__close:hover{background:#fff;color:#2E241B}
+
+/* ============ АДАПТИВ ============ */
+@media (max-width:1024px){
+  .section{padding:82px 0}
+  .cards-4{grid-template-columns:repeat(2,1fr)}
+  .rooms-grid{grid-template-columns:repeat(2,1fr)}
+  .rooms-grid .room:last-child{grid-column:1/-1;flex-direction:row}
+  .rooms-grid .room:last-child .room__media{width:46%;aspect-ratio:auto}
+  .reviews-grid{grid-template-columns:1fr;gap:18px}
+  .booking-grid{grid-template-columns:1fr;gap:40px}
+  .contacts-grid{grid-template-columns:1fr;gap:36px}
+  .footer__top{grid-template-columns:1fr 1fr;gap:36px}
+  .nav,.header__phone{display:none}
+  .burger{display:block}
+}
+
+@media (max-width:720px){
+  .section{padding:64px 0}
+  .section--tight{padding:54px 0}
+  .head{margin-bottom:36px}
+  
+  .hero {
+    min-height: 100vh; 
+    min-height: 100svh; 
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0; 
+  }
+  .hero__inner {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    padding: 100px 24px 40px; 
+  }
+  .hero__strip {
+    position: static;
+    background: rgba(20,16,12,.6); 
+    width: 100%;
+    margin-top: 0;
+  }
+  .hero__strip .container {
+    gap: 20px; 
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+  .hero__fact b { font-size: 20px; }
+  .hero__fact span { font-size: 10px; }
+  
+  .hero__actions {
+    flex-direction: column; 
+    align-items: stretch; 
+    width: 100%; 
+    max-width: 280px; 
+    margin: 0 auto; 
+    gap: 12px;
+  }
+  .hero__actions .btn {
+    width: 100%; 
+    flex: none; 
+    white-space: normal;
+  }
+  
+  .cards-4{grid-template-columns:1fr;gap:14px}
+  .adv{padding:26px 22px}
+  .rooms-grid{grid-template-columns:1fr}
+  .rooms-grid .room:last-child{grid-column:auto;flex-direction:column}
+  .rooms-grid .room:last-child .room__media{width:100%;aspect-ratio:4/3}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px;gap:10px}
+  .gallery-grid .g-item:nth-child(1){grid-column:span 2;grid-row:span 1}
+  .form-card{padding:28px 22px;border-radius:20px}
+  .form-grid{grid-template-columns:1fr}
+  .footer__top{grid-template-columns:1fr;gap:32px;padding-bottom:36px}
+  .footer{padding:54px 0 26px}
+  .map,.map .art{min-height:330px}
+  .header__cta{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+<noscript>
+<style>
+  .reveal{opacity:1!important;transform:none!important}
+  .nojs-bar{position:fixed;left:0;right:0;bottom:0;z-index:130;background:#4A3728;color:#F3EADF;padding:12px 16px;text-align:center;font-size:14px;box-shadow:0 -10px 30px -18px rgba(0,0,0,.9)}
+  .nojs-bar a{color:#fff;text-decoration:underline;text-underline-offset:3px;font-weight:600}
+  .nojs-bar span{opacity:.5;margin:0 8px}
+</style>
+</noscript>
+</head>
+<body>
+
+<!-- ================= ШАПКА ================= -->
+<header class="header" id="header">
+  <div class="container">
+    <a href="#hero" class="header__logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M12 2 5.5 11h13L12 2Z"/><path d="M12 7 4.5 17h15L12 7Z"/><path d="M12 17v5"/></svg>
+      </span>
+      <span class="logo-text"><b>Лесная Гавань</b><span>загородный отель</span></span>
+    </a>
+    <nav class="nav">
+      <a href="#advantages">Отель</a>
+      <a href="#rooms">Номера</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+    <a href="#booking" class="btn btn--primary header__cta">Забронировать</a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<noscript>
+  <div class="nojs-bar">
+    <a href="#rooms">Номера</a><span>·</span>
+    <a href="#gallery">Галерея</a><span>·</span>
+    <a href="#reviews">Отзывы</a><span>·</span>
+    <a href="#booking">Бронирование</a><span>·</span>
+    <a href="#contacts">Контакты</a>
+  </div>
+</noscript>
+
+<!-- ================= ПЕРВЫЙ ЭКРАН ================= -->
+<section class="hero" id="hero">
+  <div class="hero__bg">
+    <!-- Используем центральную часть коллажа -->
+    <img src="cabin.jpg" class="hero__art" alt="Дом у озера в лесу" style="object-position: center 50%;">
+  </div>
+
+  <div class="hero__inner">
+    <div class="eyebrow">40 км от Москвы · Сосновый лес</div>
+    <h1>Тишина, сосны<br>и тёплый деревянный дом</h1>
+    <p>Загородный отель на берегу лесного озера. Панорамные окна, живой огонь, баня на дровах и завтраки из фермерских продуктов.</p>
+    <div class="hero__actions">
+      <a href="#booking" class="btn btn--primary">Забронировать</a>
+      <a href="#rooms" class="btn btn--ghost">Смотреть номера</a>
+    </div>
+  </div>
+
+  <div class="hero__strip">
+    <div class="container">
+      <div class="hero__fact"><b>12 га</b><span>леса</span></div>
+      <div class="hero__fact"><b>18</b><span>номеров</span></div>
+      <div class="hero__fact"><b>40 мин</b><span>от города</span></div>
+      <div class="hero__fact"><b>4.9</b><span>рейтинг гостей</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ПРЕИМУЩЕСТВА ================= -->
+<section class="section" id="advantages">
+  <div class="container">
+    <div class="head head--center reveal">
+      <div class="eyebrow">Почему у нас</div>
+      <h2 class="section-title">Всё для спокойного отдыха</h2>
+      <p class="section-sub">Мы построили отель так, чтобы город остался далеко позади — а привычный комфорт остался с вами.</p>
+    </div>
+
+    <div class="cards-4">
+      <article class="adv reveal">
+        <div class="adv__icon"><svg viewBox="0 0 24 24"><path d="M12 2 5.5 11h13L12 2Z"/><path d="M12 7 4.5 17h15L12 7Z"/><path d="M12 17v5"/></svg></div>
+        <h3>Тишина леса</h3>
+        <p>12 гектаров соснового бора, собственное озеро и ни одного шумного шоссе рядом.</p>
+      </article>
+      <article class="adv reveal">
+        <div class="adv__icon"><svg viewBox="0 0 24 24"><path d="M4 18h16"/><path d="M6 18V9a6 6 0 0 1 12 0v9"/><path d="M9 5.5A3 3 0 0 1 12 3a3 3 0 0 1 3 2.5"/><path d="M9 13h6"/></svg></div>
+        <h3>Своя кухня</h3>
+        <p>Фермерские продукты, домашний хлеб и сыр, завтраки на террасе с видом на лес.</p>
+      </article>
+      <article class="adv reveal">
+        <div class="adv__icon"><svg viewBox="0 0 24 24"><path d="M3 20c0-3 2-5 5-5s5 2 5 5"/><path d="M13 20c0-3 2-5 5-5 1.2 0 2.2.3 3 1"/><path d="M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M17 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg></div>
+        <h3>Баня и спа</h3>
+        <p>Баня на дровах у воды, кедровая фитобочка и массаж по предварительной записи.</p>
+      </article>
+      <article class="adv reveal">
+        <div class="adv__icon"><svg viewBox="0 0 24 24"><path d="M3 17h13v-4l4 2v-6l-4 2V7H3v10Z"/><path d="M6 17v2"/><path d="M13 17v2"/></svg></div>
+        <h3>Трансфер</h3>
+        <p>Заберём от станции или из дома. Парковка на территории — бесплатно для гостей.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= НОМЕРА ================= -->
+<section class="section rooms" id="rooms">
+  <div class="container">
+    <div class="head reveal">
+      <div class="eyebrow">Проживание</div>
+      <h2 class="section-title">Номера и дома</h2>
+      <p class="section-sub">Дерево, лён и натуральные материалы. В каждом номере — панорамное окно в лес.</p>
+    </div>
+
+    <div class="rooms-grid">
+      <!-- НОМЕР 1 (Верхнее левое фото) -->
+      <article class="room reveal">
+        <div class="room__media">
+          <span class="room__tag">Стандарт</span>
+          <img src="cabin.jpg" class="art" alt="Номер Сосновая" style="object-position: left top;">
+        </div>
+        <div class="room__body">
+          <h3>«Сосновая»</h3>
+          <div class="room__meta">
+            <span><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M9 3v18"/></svg>24 м²</span>
+            <span><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>2 гостя</span>
+          </div>
+          <p class="desc">Уютный номер с кроватью из массива сосны, балконом и видом на лесную опушку.</p>
+          <div class="room__foot">
+            <div class="price"><b>8 900 ₽</b><span>за ночь</span></div>
+            <a href="#booking" class="btn btn--outline">Выбрать</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- НОМЕР 2 (Верхнее правое фото - озеро) -->
+      <article class="room reveal">
+        <div class="room__media">
+          <span class="room__tag">Люкс</span>
+          <img src="cabin.jpg" class="art" alt="Номер Кедровая" style="object-position: right top;">
+        </div>
+        <div class="room__body">
+          <h3>«Кедровая»</h3>
+          <div class="room__meta">
+            <span><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M9 3v18"/></svg>38 м²</span>
+            <span><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>3 гостя</span>
+          </div>
+          <p class="desc">Просторный люкс с камином, собственной террасой и ванной у окна с видом на озеро.</p>
+          <div class="room__foot">
+            <div class="price"><b>13 500 ₽</b><span>за ночь</span></div>
+            <a href="#booking" class="btn btn--outline">Выбрать</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- НОМЕР 3 (Нижнее левое фото) -->
+      <article class="room reveal">
+        <div class="room__media">
+          <span class="room__tag">Коттедж</span>
+          <img src="cabin.jpg" class="art" alt="Дом у озера" style="object-position: left bottom;">
+        </div>
+        <div class="room__body">
+          <h3>Дом у озера</h3>
+          <div class="room__meta">
+            <span><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M9 3v18"/></svg>72 м²</span>
+            <span><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>6 гостей</span>
+          </div>
+          <p class="desc">Отдельный двухэтажный дом с сауной, кухней и собственным пирсом. Идеален для семьи.</p>
+          <div class="room__foot">
+            <div class="price"><b>24 000 ₽</b><span>за ночь</span></div>
+            <a href="#booking" class="btn btn--outline">Выбрать</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ГАЛЕРЕЯ ================= -->
+<section class="section section--tight" id="gallery">
+  <div class="container">
+    <div class="head head--center reveal">
+      <div class="eyebrow">Галерея</div>
+      <h2 class="section-title">Как у нас выглядит утро</h2>
+    </div>
+
+    <div class="gallery-grid reveal">
+      <button type="button" class="g-item" aria-label="Открыть фото: дом">
+        <img src="cabin.jpg" class="art" alt="Дом" style="object-position: center 50%;">
+      </button>
+      <button type="button" class="g-item" aria-label="Открыть фото: вид на озеро">
+        <img src="cabin.jpg" class="art" alt="Озеро" style="object-position: right top;">
+      </button>
+      <button type="button" class="g-item" aria-label="Открыть фото: вечерний свет">
+        <img src="cabin.jpg" class="art" alt="Вечерний свет" style="object-position: left top;">
+      </button>
+      <button type="button" class="g-item" aria-label="Открыть фото: терраса">
+        <img src="cabin.jpg" class="art" alt="Терраса" style="object-position: left bottom;">
+      </button>
+      <button type="button" class="g-item" aria-label="Открыть фото: дальний берег">
+        <img src="cabin.jpg" class="art" alt="Дальний берег" style="object-position: right bottom;">
+      </button>
+      <button type="button" class="g-item" aria-label="Открыть фото: сумерки">
+        <img src="cabin.jpg" class="art" alt="Сумерки" style="object-position: center 50%;">
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ОТЗЫВЫ ================= -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="head head--center reveal">
+      <div class="eyebrow">Отзывы</div>
+      <h2 class="section-title">Что говорят гости</h2>
+    </div>
+
+    <div class="reviews-grid">
+      <article class="review reveal">
+        <div class="review__quote">“</div>
+        <div class="review__stars">
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+        </div>
+        <p>Приехали на выходные и не заметили, как прошло три дня. Утром — туман над озером и запах хвои. Номер «Кедровая» с камином — отдельная любовь.</p>
+        <div class="review__author">
+          <div class="avatar">АМ</div>
+          <div><b>Анна Морозова</b><span>Москва · сентябрь 2025</span></div>
+        </div>
+      </article>
+
+      <article class="review reveal">
+        <div class="review__quote">“</div>
+        <div class="review__stars">
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+        </div>
+        <p>Брали дом у озера на день рождения. Баня, пирс, завтраки на террасе — всё продумано до мелочей. Персонал незаметный, но всегда рядом.</p>
+        <div class="review__author">
+          <div class="avatar">ДК</div>
+          <div><b>Дмитрий Ковалёв</b><span>Санкт-Петербург · август 2025</span></div>
+        </div>
+      </article>
+
+      <article class="review reveal">
+        <div class="review__quote">“</div>
+        <div class="review__stars">
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+        </div>
+        <p>Ездили с ребёнком — ему раздолье: лес, лодки, белки за окном. Взрослым — тишина и книги у камина. Вернёмся зимой, посмотреть на снег.</p>
+        <div class="review__author">
+          <div class="avatar">ЕС</div>
+          <div><b>Елена Соколова</b><span>Москва · июль 2025</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= БРОНИРОВАНИЕ ================= -->
+<section class="section booking" id="booking">
+  <div class="container">
+    <div class="booking-grid">
+      <div class="booking__text reveal">
+        <div class="eyebrow">Бронирование</div>
+        <h2>Забронируйте свой тихий уикенд</h2>
+        <p>Оставьте заявку — мы перезвоним в течение 15 минут, подтвердим даты и поможем выбрать номер.</p>
+        <ul class="booking__notes">
+          <li><svg viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>Бесплатная отмена за 3 дня до заезда</li>
+          <li><svg viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>Завтраки включены во все тарифы</li>
+          <li><svg viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>Ранний заезд и поздний выезд — по запросу</li>
+        </ul>
+      </div>
+
+      <div class="form-card reveal">
+        <h3>Заявка на бронь</h3>
+        <p>Заполните форму — это займёт меньше минуты</p>
+
+        <!-- Форма интегрирована с Formspree -->
+        <form id="bookingForm" action="https://formspree.io/f/xdegzrpd" method="POST">
+          <div class="form-grid">
+            <div class="field">
+              <label for="checkin">Заезд</label>
+              <input type="date" id="checkin" name="checkin" required data-fs-field>
+              <span data-fs-error="checkin"></span>
+            </div>
+            <div class="field">
+              <label for="checkout">Выезд</label>
+              <input type="date" id="checkout" name="checkout" required data-fs-field>
+              <span data-fs-error="checkout"></span>
+            </div>
+            <div class="field">
+              <label for="guests">Гости</label>
+              <select id="guests" name="guests" data-fs-field>
+                <option>1 гость</option><option selected>2 гостя</option><option>3 гостя</option>
+                <option>4 гостя</option><option>5–6 гостей</option>
+              </select>
+              <span data-fs-error="guests"></span>
+            </div>
+            <div class="field">
+              <label for="room">Номер</label>
+              <select id="room" name="room" data-fs-field>
+                <option>«Сосновая» — 8 900 ₽</option><option>«Кедровая» — 13 500 ₽</option>
+                <option>Дом у озера — 24 000 ₽</option><option>Помогите выбрать</option>
+              </select>
+              <span data-fs-error="room"></span>
+            </div>
+            <div class="field field--full">
+              <label for="name">Ваше имя</label>
+              <input type="text" id="name" name="name" placeholder="Имя и фамилия" required data-fs-field>
+              <span data-fs-error="name"></span>
+            </div>
+            <div class="field field--full">
+              <label for="phone">Телефон</label>
+              <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required data-fs-field>
+              <span data-fs-error="phone"></span>
+            </div>
+          </div>
+
+          <noscript>
+            <p class="nojs-warn">Для отправки формы нужен JavaScript. Позвоните нам: <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+          </noscript>
+
+          <!-- Кнопка и сообщения Formspree -->
+          <button type="submit" class="btn btn--primary btn--block" data-fs-submit-btn>Отправить заявку</button>
+          <div data-fs-success>Спасибо! Заявка принята — мы перезвоним в течение 15 минут.</div>
+          <div data-fs-error></div>
+          
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь с <a href="#">политикой обработки персональных данных</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= КОНТАКТЫ ================= -->
+<section class="section" id="contacts">
+  <div class="container">
+    <div class="contacts-grid">
+      <div class="reveal">
+        <div class="eyebrow">Контакты</div>
+        <h2 class="section-title">Как нас найти</h2>
+        <p class="section-sub">Мы в 40 км от МКАД по Новорижскому шоссе. Есть бесплатный трансфер от станции.</p>
+
+        <div class="contact-list">
+          <div class="contact-item">
+            <div class="contact-item__icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></div>
+            <div><b>Адрес</b><span>Московская обл., Одинцовский р-н,<br>дер. Сосновка, 1</span></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item__icon"><svg viewBox="0 0 24 24"><path d="M5 3h3l2 5-2.5 1.5a12 12 0 0 0 5 5L14 12l5 2v3a2 2 0 0 1-2.2 2A16 16 0 0 1 3 5.2 2 2 0 0 1 5 3Z"/></svg></div>
+            <div><b>Телефон</b><a href="tel:+74951234567"><span>+7 (495) 123-45-67</span></a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item__icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg></div>
+            <div><b>Почта</b><a href="mailto:hello@lesnaya-gavan.ru"><span>hello@lesnaya-gavan.ru</span></a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.5l3.5 2"/></svg></div>
+            <div><b>Ресепшн</b><span>Круглосуточно · заезд с 15:00, выезд до 12:00</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="map reveal">
+        <svg class="art" viewBox="0 0 600 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="600" height="500" fill="#EFE7DA"/>
+          <g fill="#DCE4D3">
+            <ellipse cx="120" cy="110" rx="130" ry="90"/>
+            <ellipse cx="470" cy="380" rx="150" ry="120"/>
+            <ellipse cx="520" cy="80" rx="110" ry="80"/>
+          </g>
+          <path d="M60 330 q60 -40 130 -10 q70 30 40 80 q-30 50 -110 40 q-80 -10 -60 -110 Z" fill="#C3D7DE"/>
+          <path d="M300 0 q40 120 -10 220 q-50 100 30 180 q60 60 20 100" fill="none" stroke="#C3D7DE" stroke-width="16" stroke-linecap="round"/>
+          <path d="M-20 200 q150 40 280 10 q140 -30 360 60" fill="none" stroke="#D8C9B0" stroke-width="18"/>
+          <path d="M-20 200 q150 40 280 10 q140 -30 360 60" fill="none" stroke="#FFFDF9" stroke-width="12" stroke-dasharray="18 14"/>
+          <circle cx="300" cy="215" r="36" fill="#8A5A3B" opacity=".14"/>
+          <path d="M300 176 c-17 0 -30 13 -30 29 c0 21 30 48 30 48 s30 -27 30 -48 c0 -16 -13 -29 -30 -29 Z" fill="#8A5A3B"/>
+          <circle cx="300" cy="204" r="10" fill="#F6F1E8"/>
+          <text x="300" y="298" text-anchor="middle" font-family="Manrope, system-ui, sans-serif" font-size="17" font-weight="700" fill="#4A3728">Лесная Гавань</text>
+        </svg>
+        <a class="map__link" href="https://yandex.ru/maps/?text=Одинцовский%20район%20деревня%20Сосновка" target="_blank" rel="noopener">Открыть в Яндекс.Картах</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ПОДВАЛ ================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div>
+        <a href="#hero" class="header__logo">
+          <span class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2 5.5 11h13L12 2Z"/><path d="M12 7 4.5 17h15L12 7Z"/><path d="M12 17v5"/></svg></span>
+          <span class="logo-text"><b>Лесная Гавань</b><span>загородный отель</span></span>
+        </a>
+        <p class="footer__about">Тихий отель в сосновом лесу на берегу озера. Круглый год — для тех, кто устал от города.</p>
+        <div class="socials">
+          <a href="#" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 19 20c-.2 1-.8 1.3-1.6.8l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.5-.5-.2L7.9 13.7 3.5 12.3c-1-.3-1-1 .2-1.4l17-6.6c.8-.3 1.5.2 1.2 1z"/></svg></a>
+          <a href="#" aria-label="VK"><svg viewBox="0 0 24 24"><path d="M12.8 17c-5.4 0-8.6-3.7-8.7-9.9h2.7c.1 4.6 2.1 6.5 3.6 6.9V7.1h2.6v3.9c1.5-.2 3-1.8 3.6-3.9h2.6c-.4 2.6-2.1 4.3-3.3 5 1.2.6 3.1 2.1 3.9 4.9h-2.9c-.6-1.9-2-3.3-3.9-3.5V17h-.2z"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Zm4.5-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.1-.2 0-.4.1-.5l.6-.7c.1-.2.1-.3 0-.5l-.7-1.6c-.1-.3-.3-.3-.5-.3h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.1 0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.3 3.8 2.1.9 2.6.7 3.1.7.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.2-.2-.2-.3Z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Отель</h4>
+        <ul><li><a href="#advantages">О нас</a></li><li><a href="#rooms">Номера</a></li><li><a href="#gallery">Галерея</a></li><li><a href="#reviews">Отзывы</a></li></ul>
+      </div>
+      <div>
+        <h4>Гостям</h4>
+        <ul><li><a href="#booking">Бронирование</a></li><li><a href="#contacts">Как добраться</a></li><li><a href="#">Правила проживания</a></li><li><a href="#">Подарочные сертификаты</a></li></ul>
+      </div>
+      <div>
+        <h4>Связаться</h4>
+        <ul>
+          <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+          <li><a href="mailto:hello@lesnaya-gavan.ru">hello@lesnaya-gavan.ru</a></li>
+          <li>дер. Сосновка, 1<br>Одинцовский р-н</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2025 Загородный отель «Лесная Гавань». Все права защищены.</span>
+      <span><a href="#">Политика конфиденциальности</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= ЛАЙТБОКС ================= -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Закрыть">×</button>
+  <div class="lightbox__art" id="lightboxArt"></div>
+</div>
+
+<!-- Подключение Formspree AJAX (CDN) -->
+<script>
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#bookingForm', formId: 'xdegzrpd' });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Шапка при скролле ---------- */
+  var header = document.getElementById('header');
+  function onScroll() { header.classList.toggle('scrolled', window.scrollY > 40); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ---------- Мобильное меню ---------- */
+  var burger = document.getElementById('burger');
+  var nav = document.querySelector('.nav');
+  var menuOpen = false;
+
+  function toggleMenu(force) {
+    menuOpen = typeof force === 'boolean' ? force : !menuOpen;
+    burger.classList.toggle('open', menuOpen);
+    burger.setAttribute('aria-expanded', String(menuOpen));
+    header.classList.toggle('scrolled', menuOpen || window.scrollY > 40);
+
+    if (menuOpen) {
+      nav.style.cssText = 'display:flex;position:fixed;top:72px;left:16px;right:16px;flex-direction:column;align-items:stretch;gap:2px;background:#FFFDF9;padding:14px;border-radius:20px;box-shadow:0 30px 60px -30px rgba(74,55,40,.9);border:1px solid rgba(74,55,40,.12);z-index:110';
+      Array.prototype.forEach.call(nav.querySelectorAll('a'), function (a) {
+        a.style.cssText = 'color:#4A3728;padding:13px 16px;border-radius:12px;font-size:16px;font-weight:600';
+      });
+    } else {
+      nav.removeAttribute('style');
+      Array.prototype.forEach.call(nav.querySelectorAll('a'), function (a) { a.removeAttribute('style'); });
+    }
+  }
+
+  burger.addEventListener('click', function () { toggleMenu(); });
+  nav.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A' && menuOpen) toggleMenu(false);
+  });
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 1024 && menuOpen) toggleMenu(false);
+  });
+
+  /* ---------- Появление секций ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    Array.prototype.forEach.call(revealEls, function (el) { io.observe(el); });
+  } else {
+    Array.prototype.forEach.call(revealEls, function (el) { el.classList.add('in'); });
+  }
+
+  /* ---------- Лайтбокс ---------- */
+  var lightbox = document.getElementById('lightbox');
+  var lightboxArt = document.getElementById('lightboxArt');
+
+  function openLightbox(img) {
+    lightboxArt.innerHTML = '';
+    var clone = img.cloneNode(true);
+    clone.setAttribute('style', 'width:100%;height:100%;display:block;object-fit:cover;' + (img.style.objectPosition ? 'object-position:' + img.style.objectPosition : ''));
+    lightboxArt.appendChild(clone);
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lightboxArt.innerHTML = '';
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.g-item'), function (btn) {
+    btn.addEventListener('click', function () {
+      var img = btn.querySelector('img');
+      if (img) openLightbox(img);
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ---------- Ограничение дат (дополнение к Formspree) ---------- */
+  var checkin = document.getElementById('checkin');
+  var checkout = document.getElementById('checkout');
+
+  var today = new Date().toISOString().split('T')[0];
+  checkin.min = today;
+  checkout.min = today;
+
+  checkin.addEventListener('change', function () {
+    if (!checkin.value) return;
+    var next = new Date(checkin.value);
+    next.setDate(next.getDate() + 1);
+    var minOut = next.toISOString().split('T')[0];
+    checkout.min = minOut;
+    if (checkout.value && checkout.value < minOut) checkout.value = minOut;
+  });
+
+})();
+</script>
+</body>
+</html>
